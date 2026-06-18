@@ -1,15 +1,14 @@
 class Solution {
 public:
     char findTheDifference(string s, string t) {
-        vector<int> hash(26,0);
+        char ch = t[0];
         for (char &c : s){
-            hash[c-'a']++;
+            ch = c^ch;
         }
-        for (int i = 0; i < t.size(); i++){
-            if (hash[t[i]-'a'] == 0) return t[i];
-            hash[t[i]-'a']--;
+        for (int i = 1; i < t.size(); i++){
+            ch = ch^t[i];
         }
-        return 'a';
+        return ch;
     }
 };
 
