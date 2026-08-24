@@ -11,19 +11,17 @@ public:
     }
     int stoneGameVIII(vector<int>& stones) {
         int n = stones.size();
-        vector<int> prefixSum(n,0);
-        prefixSum[0] = stones[0];
+        long long runningSum = 0;
+        runningSum = stones[0];
         for (int i = 1; i < n; i++){
-            prefixSum[i] = prefixSum[i-1] + stones[i];
+            runningSum += stones[i];
         }
-        vector<int> dp(n,-1);
-        dp[n-1] = prefixSum[n-1];
+        int ans = runningSum;
         for (int i = n-2; i >= 1; i--){
-            int take = prefixSum[i] - dp[i+1];
-            int skip = dp[i+1];
-            dp[i] = max(skip,take);
+           runningSum -= stones[i+1];
+           ans = max((long long)ans, runningSum - ans);
         }
-        return dp[1];
+        return ans;
     }
 };
 
